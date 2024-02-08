@@ -6,7 +6,7 @@ import bot from "./assets/bot.png";
 import loadingIcon from "./assets/loader.svg";
 
 
-
+// Hello from nandu
 
 function App() {
     const [input, setInput] = useState("");
