@@ -20,7 +20,7 @@ function App() {
     // import.meta.env.VITE_BACKEND_API
     const fetchBotResponse = async () => {
         const { data } = await axios.post(
-            "http://localhost:8080",
+            import.meta.env.VITE_BACKEND_API,
             { input },
             {
                 headers: {
