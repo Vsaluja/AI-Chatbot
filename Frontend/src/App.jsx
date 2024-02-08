@@ -1,15 +1,12 @@
-// let arr = [
-//   {type: "user", post: "fafafafa"},
-//   {type: "bot", post: "fafafafa"},
-// ]
-
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 import send from "./assets/send.svg";
 import user from "./assets/user.png";
 import bot from "./assets/bot.png";
 import loadingIcon from "./assets/loader.svg";
+
+
+
 
 function App() {
     const [input, setInput] = useState("");
@@ -20,9 +17,10 @@ function App() {
             document.querySelector(".layout").scrollHeight;
     }, [posts]);
 
+    // import.meta.env.VITE_BACKEND_API
     const fetchBotResponse = async () => {
         const { data } = await axios.post(
-            "http://localhost:4000",
+            "http://localhost:8080",
             { input },
             {
                 headers: {
