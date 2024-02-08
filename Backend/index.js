@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 8080
 app.use(cors());
 app.use(express.json());
 
+app.get('/test', (req, res) => {
+    res.send("TESTING");
+})
+
 app.get("/", async (req, res) => {
     res.status(200).send({
         message:
