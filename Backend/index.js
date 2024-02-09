@@ -23,6 +23,8 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
+// Making bot remember history 
+// https://community.openai.com/t/gpt-3-5-turbo-how-to-remember-previous-messages-like-chat-gpt-website/170370/6
 
 let conversationHistory = [];
 app.post("/", async (req, res) => {
