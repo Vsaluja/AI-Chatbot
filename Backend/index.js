@@ -10,9 +10,6 @@ const PORT = process.env.PORT || 8080
 app.use(cors());
 app.use(express.json());
 
-app.get('/test', (req, res) => {
-    res.send("TESTING");
-})
 
 app.get("/", async (req, res) => {
     res.status(200).send({
@@ -25,9 +22,6 @@ app.get("/", async (req, res) => {
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
-
-
-
 
 
 app.post("/", async (req, res) => {
@@ -53,7 +47,7 @@ app.post("/", async (req, res) => {
     }
 });
 
-app.post("/ques/:query", async (req, res) => {
+app.post("/test/:query", async (req, res) => {
     try {
         const query = req.params.query;
         console.log("req", req.body);
@@ -75,10 +69,6 @@ app.post("/ques/:query", async (req, res) => {
         res.status(500).send(error);
     }
 });
-
-
-
-
 
 
 app.listen(PORT, () => console.log("Server is running on port", PORT));
