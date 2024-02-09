@@ -14,12 +14,16 @@ function App() {
     // Helps in scrolling down while the bot is styping
     document.querySelector(".layout").scrollTop =
       document.querySelector(".layout").scrollHeight;
+
   }, [posts]);
 
   // import.meta.env.VITE_BACKEND_API
   const fetchBotResponse = async () => {
+
+
+
     const { data } = await axios.post(
-      import.meta.env.VITE_BACKEND_API,
+      "http://localhost:8080",
       { input },
       {
         headers: {

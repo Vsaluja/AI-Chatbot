@@ -24,17 +24,23 @@ const openai = new OpenAI({
 });
 
 
+let conversationHistory = [];
 app.post("/", async (req, res) => {
     try {
 
         console.log("req", req.body);
 
+        conversationHistory.push({ role: "user", content: req.body.input })
+
         const response = await openai.chat.completions.create({
-            messages: [{ role: "system", content: req.body.input }],
+            // messages: [{ role: "user", content: req.body.input }],
+            messages: conversationHistory,
             model: "gpt-3.5-turbo",
         });
+        conversationHistory.push({ role: "assistant", content: response.choices[0].message.content })
+        // console.log(response.choices[0].message.content);
 
-        console.log(response.choices[0].message.content);
+        console.log(conversationHistory);
 
         res.status(200).send(response.choices[0].message.content);
 
@@ -47,18 +53,21 @@ app.post("/", async (req, res) => {
     }
 });
 
+let testMessages = [];
 app.post("/test/:query", async (req, res) => {
     try {
         const query = req.params.query;
-        console.log("req", req.body);
+        testMessages.push({ role: "user", content: query })
 
         const response = await openai.chat.completions.create({
-            messages: [{ role: "system", content: query }],
+            // messages: [{ role: "user", content: req.body.input }],
+            messages: testMessages,
             model: "gpt-3.5-turbo",
         });
-
+        testMessages.push({ role: "assistant", content: response.choices[0].message.content })
         // console.log(response.choices[0].message.content);
-        console.log(response.choices[0]);
+
+        console.log(testMessages);
 
         res.status(200).send(response.choices[0].message.content);
 
