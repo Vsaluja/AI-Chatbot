@@ -20,11 +20,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+html, body{
+  height: 100%;
+  width: 100%;
+}
+
+#root{
+  height: 100%;
+  width: 100%;
+}
 
 .chatGPT-app {
   max-width: 1200px;
+  padding: 20px 20px;
   margin: 0 auto;
-  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .chatGPT-app .chat-heading{
@@ -79,7 +92,8 @@ footer {
   margin-right: -5px;
 }
 .chat-container {
-  height: calc(100vh - 115px);
+  flex: 1;
+  height: calc(100% - 120px);
   padding: 10px 0;
 }
 .layout {
@@ -135,8 +149,8 @@ footer {
 }
 
 @media (max-width: 450px){
-  .chat-container {
+  /* .chat-container {
     height: calc(100vh - 230px);
     padding: 10px 0;
-  }
+  } */
 }
