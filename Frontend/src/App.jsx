@@ -8,15 +8,12 @@ import { FaMicrophone } from "react-icons/fa6";
 import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { IoCopySharp } from "react-icons/io5";
-import useClipboard from "react-use-clipboard";
-import Test from "./Test/Test";
 
 function App() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [history, setHistory] = useState([]);
-  const [textToCopy, setTextToCopy] = useState();
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
@@ -128,8 +125,6 @@ function App() {
     setInput(transcript);
 
 
-
-
   }
 
   useEffect(() => {
@@ -143,19 +138,18 @@ function App() {
 
   // Helps in scrolling the input element while user speaks
   useEffect(() => {
+    // below commented out one wasn't working for mobile devices
     // focusInputElement.current.scrollTo({ left: focusInputElement.current.scrollWidth, behavior: "smooth" });
     focusInputElement.current.scrollLeft += focusInputElement.current.scrollWidth;
   }, [input])
 
 
 
-  const [copied, setCopied] = useClipboard("");
+
   const copyText = (postId) => {
     posts.map((post, i) => {
       if (i === postId) {
-        console.log("Copied", post.post);
-        setCopied(post.post);
-        console.log("My Copied", copied);
+        navigator.clipboard.writeText(post.post)
       }
     })
   }
@@ -191,7 +185,11 @@ function App() {
                   {post.type === "bot" ? (
                     <div style={{ display: "flex", gap: 10, justifyContent: "space-between" }}>
                       {post.post}
-                      {/* <IoCopySharp style={{ cursor: "pointer", minWidth: 15 }} onClick={() => copyText(index)} /> */}
+                      {post.post.length > 100 && (
+                        <div id="copy" onClick={() => copyText(index)}>
+                          <IoCopySharp style={{ cursor: "pointer", minWidth: 15 }} />
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div>{post.post}</div>

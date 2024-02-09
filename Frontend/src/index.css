@@ -126,6 +126,11 @@ footer {
 .chat-bubble .avatar img {
   width: 22px;
 }
+
+#copy{
+  cursor: pointer;
+}
+
 .post {
   padding: 10px 20px;
   width: fit-content;
