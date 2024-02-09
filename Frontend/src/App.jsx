@@ -128,17 +128,23 @@ function App() {
     setInput(transcript);
 
 
+
+
   }
 
   useEffect(() => {
     if (listening) {
       speechToText();
     }
-    else {
-      resetTranscript();
-    }
+    // else {
+    //   resetTranscript();
+    // }
   }, [transcript, listening])
 
+  // Helps in scrolling the input element while user speaks
+  useEffect(() => {
+    focusInputElement.current.scrollTo((focusInputElement.current.value.length) + 500, 0);
+  }, [input])
 
 
 
