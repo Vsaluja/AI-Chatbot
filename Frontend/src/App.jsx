@@ -97,7 +97,10 @@ function App() {
 
   return (
     <main className="chatGPT-app">
-      <h2 className="chat-heading"><span>Chattifyy</span> AI<span style={{ fontSize: 12, color: "white" }}> Powered By GPT 3.5</span></h2>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <h2 className="chat-heading"><span>Chattifyy</span> AI</h2>
+        <span style={{ fontSize: 12, color: "white", marginLeft: 100, fontWeight: "bold" }}> Powered By GPT 3.5</span>
+      </div>
       <section className="chat-container">
         <div className="layout">
           {posts.map((post, index) => (

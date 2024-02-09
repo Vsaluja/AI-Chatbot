@@ -30,7 +30,7 @@
 .chatGPT-app .chat-heading{
   font-size: 30px;
   text-align: center;
-  margin: 10px 0px;
+  margin-top: 10px;
   font-weight: bold;
 }
 
@@ -79,8 +79,8 @@ footer {
   margin-right: -5px;
 }
 .chat-container {
-  height: calc(100vh - 110px);
-  padding: 20px 0;
+  height: calc(100vh - 115px);
+  padding: 10px 0;
 }
 .layout {
   width: 100%;
@@ -136,7 +136,7 @@ footer {
 
 @media (max-width: 450px){
   .chat-container {
-    height: calc(100vh - 220px);
-    padding: 20px 0;
+    height: calc(100vh - 230px);
+    padding: 10px 0;
   }
 }
