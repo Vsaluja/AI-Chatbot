@@ -9,6 +9,7 @@ import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { IoCopySharp } from "react-icons/io5";
 import useClipboard from "react-use-clipboard";
+import Test from "./Test/Test";
 
 function App() {
   const [input, setInput] = useState("");
@@ -16,6 +17,9 @@ function App() {
   const [botTyping, setBotTyping] = useState(false);
   const [history, setHistory] = useState([]);
   const [textToCopy, setTextToCopy] = useState();
+
+  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+
 
   useEffect(() => {
     // Helps in scrolling down while the bot is styping
@@ -70,6 +74,9 @@ function App() {
   };
 
   const onSubmit = () => {
+    SpeechRecognition.stopListening();
+    resetTranscript();
+
     if (input.trim() === "") return;
     if (botTyping) return;
     updatePosts(input);
@@ -77,15 +84,8 @@ function App() {
     setInput("");
     setBotTyping(true);
     fetchBotResponse().then((res) => {
-      // console.log(res.bot.trim());
-      // updatePosts(res, true);
-      console.log("Res this side", res);
       updatePosts(res, true);
     });
-
-    // To stop and reset speech when user submits
-    SpeechRecognition.stopListening();
-    resetTranscript();
   };
 
   const updatePosts = (post, isBot, isLoading) => {
@@ -107,15 +107,11 @@ function App() {
   const onKeyUp = (e) => {
     if (e.key === "Enter" || e.which === 13) {
       onSubmit();
+      resetTranscript();
     }
   };
 
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+
 
   const focusInputElement = useRef();
 
@@ -127,13 +123,15 @@ function App() {
 
     SpeechRecognition.startListening({ continuous: true })
 
+
+
+
     console.log(listening ? "on" : "off");
 
     setInput(transcript);
 
-
-
     focusInputElement.current.focus();
+    focusInputElement.scrollLeft = focusInputElement.scrollWidth;
 
   }
 
@@ -141,7 +139,11 @@ function App() {
     if (listening) {
       speechToText();
     }
-  }, [transcript])
+    // else {
+    //   resetTranscript();
+    // }
+  }, [transcript, listening])
+
 
 
 
