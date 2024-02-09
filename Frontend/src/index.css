@@ -31,11 +31,14 @@
   font-size: 30px;
   text-align: center;
   margin: 10px 0px;
+  font-weight: bold;
 }
 
 .chatGPT-app .chat-heading > span{
-  color: #2541fc;
+  color: #5468ef;
 }
+
+
 
 footer {
   display: flex;
@@ -129,4 +132,11 @@ footer {
   border-radius: 22px;
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 450px){
+  .chat-container {
+    height: calc(100vh - 220px);
+    padding: 20px 0;
+  }
 }
