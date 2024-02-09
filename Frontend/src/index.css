@@ -108,6 +108,7 @@ footer {
 .chat-bubble {
   display: flex;
   gap: 15px;
+  word-break: normal;
 }
 .chat-bubble .avatar {
   width: 44px;

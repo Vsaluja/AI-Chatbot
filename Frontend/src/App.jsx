@@ -1,15 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import send from "./assets/send.svg";
 import user from "./assets/user.png";
 import bot from "./assets/bot.png";
 import loadingIcon from "./assets/loader.svg";
+import { FaMicrophone } from "react-icons/fa6";
+import 'regenerator-runtime/runtime';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { IoCopySharp } from "react-icons/io5";
+import useClipboard from "react-use-clipboard";
 
 function App() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
   const [history, setHistory] = useState([]);
+  const [textToCopy, setTextToCopy] = useState();
 
   useEffect(() => {
     // Helps in scrolling down while the bot is styping
@@ -76,6 +82,10 @@ function App() {
       console.log("Res this side", res);
       updatePosts(res, true);
     });
+
+    // To stop and reset speech when user submits
+    SpeechRecognition.stopListening();
+    resetTranscript();
   };
 
   const updatePosts = (post, isBot, isLoading) => {
@@ -99,6 +109,53 @@ function App() {
       onSubmit();
     }
   };
+
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  const focusInputElement = useRef();
+
+  const speechToText = () => {
+
+    if (!browserSupportsSpeechRecognition) {
+      return alert("This browser doesn't support speech regonition")
+    }
+
+    SpeechRecognition.startListening({ continuous: true })
+
+    console.log(listening ? "on" : "off");
+
+    setInput(transcript);
+
+
+
+    focusInputElement.current.focus();
+
+  }
+
+  useEffect(() => {
+    if (listening) {
+      speechToText();
+    }
+  }, [transcript])
+
+
+
+  const [copied, setCopied] = useClipboard("");
+  const copyText = (postId) => {
+    posts.map((post, i) => {
+      if (i === postId) {
+        console.log("Copied", post.post);
+        setCopied(post.post);
+        console.log("My Copied", copied);
+      }
+    })
+  }
+
 
   return (
     <main className="chatGPT-app">
@@ -126,7 +183,17 @@ function App() {
                   <img src={loadingIcon} />
                 </div>
               ) : (
-                <div className="post">{post.post}</div>
+                <div className="post">
+                  {post.type === "bot" ? (
+                    <div style={{ display: "flex", gap: 10, justifyContent: "space-between" }}>
+                      {post.post}
+                      {/* <IoCopySharp style={{ cursor: "pointer", minWidth: 15 }} onClick={() => copyText(index)} /> */}
+                    </div>
+                  ) : (
+                    <div>{post.post}</div>
+                  )}
+
+                </div>
               )}
             </div>
           ))}
@@ -141,6 +208,7 @@ function App() {
           placeholder="Ask me anything!"
           onChange={(e) => setInput(e.target.value)}
           onKeyUp={onKeyUp}
+          ref={focusInputElement}
         />
         {botTyping ? (
           <div
@@ -151,9 +219,17 @@ function App() {
             <img src={send} />
           </div>
         ) : (
-          <div className="send-button" onClick={onSubmit}>
-            <img src={send} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {listening ? (
+              <FaMicrophone style={{ fontSize: 25, cursor: "pointer", color: "#4157F7" }} onClick={() => { SpeechRecognition.stopListening() }} />
+            ) : (
+              <FaMicrophone style={{ fontSize: 25, cursor: "pointer" }} onClick={speechToText} />
+            )}
+            <div className="send-button" onClick={onSubmit}>
+              <img src={send} />
+            </div>
           </div>
+
         )}
       </footer>
     </main>
