@@ -8,6 +8,8 @@ import { FaMicrophone } from "react-icons/fa6";
 import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { IoCopySharp } from "react-icons/io5";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [input, setInput] = useState("");
@@ -149,6 +151,7 @@ function App() {
   const copyText = (postId) => {
     posts.map((post, i) => {
       if (i === postId) {
+        toast('Text Copied', { theme: "dark", autoClose: 1000 });
         navigator.clipboard.writeText(post.post)
       }
     })
@@ -234,6 +237,7 @@ function App() {
 
         )}
       </footer>
+      <ToastContainer />
     </main>
   );
 }
