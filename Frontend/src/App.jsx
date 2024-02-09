@@ -9,6 +9,7 @@ function App() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
   const [botTyping, setBotTyping] = useState(false);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     // Helps in scrolling down while the bot is styping
@@ -20,19 +21,19 @@ function App() {
   // import.meta.env.VITE_BACKEND_API
   const fetchBotResponse = async () => {
 
-
-
     const { data } = await axios.post(
       import.meta.env.VITE_BACKEND_API,
-      { input },
+      { input, history },
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    console.log(data);
-    return data;
+    // Sending the response and setting conversationHistory to my state so it holds the entire history of the user's current chat session and send the history back to the backend server when user asks another question
+    const { response, conversationHistory } = data;
+    setHistory(conversationHistory);
+    return response;
   };
 
   const autoTypingBotResponse = (text) => {

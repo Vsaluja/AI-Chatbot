@@ -26,13 +26,15 @@ const openai = new OpenAI({
 // Making bot remember history 
 // https://community.openai.com/t/gpt-3-5-turbo-how-to-remember-previous-messages-like-chat-gpt-website/170370/6
 
-let conversationHistory = [];
 app.post("/", async (req, res) => {
     try {
 
-        console.log("req", req.body);
+        const { input, history } = req.body;
 
-        conversationHistory.push({ role: "user", content: req.body.input })
+
+        let conversationHistory = history;
+
+        conversationHistory.push({ role: "user", content: input })
 
         const response = await openai.chat.completions.create({
             // messages: [{ role: "user", content: req.body.input }],
@@ -40,11 +42,10 @@ app.post("/", async (req, res) => {
             model: "gpt-3.5-turbo",
         });
         conversationHistory.push({ role: "assistant", content: response.choices[0].message.content })
-        // console.log(response.choices[0].message.content);
 
         console.log(conversationHistory);
 
-        res.status(200).send(response.choices[0].message.content);
+        res.status(200).send({ response: response.choices[0].message.content, conversationHistory: conversationHistory });
 
 
 
