@@ -143,7 +143,8 @@ function App() {
 
   // Helps in scrolling the input element while user speaks
   useEffect(() => {
-    focusInputElement.current.scrollTo({ left: focusInputElement.current.scrollWidth, behavior: "smooth" });
+    // focusInputElement.current.scrollTo({ left: focusInputElement.current.scrollWidth, behavior: "smooth" });
+    focusInputElement.current.scrollLeft += focusInputElement.current.scrollWidth;
   }, [input])
 
 
