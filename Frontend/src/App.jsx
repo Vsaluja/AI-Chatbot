@@ -139,9 +139,9 @@ function App() {
     if (listening) {
       speechToText();
     }
-    // else {
-    //   resetTranscript();
-    // }
+    else {
+      resetTranscript();
+    }
   }, [transcript, listening])
 
 
