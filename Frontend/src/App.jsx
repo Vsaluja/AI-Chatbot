@@ -115,13 +115,13 @@ function App() {
 
   const focusInputElement = useRef();
 
-  const speechToText = async () => {
+  const speechToText = () => {
 
     if (!browserSupportsSpeechRecognition) {
       return alert("This browser doesn't support speech regonition")
     }
 
-    await SpeechRecognition.startListening({ continuous: true })
+    SpeechRecognition.startListening({ continuous: true })
 
     console.log(listening ? "on" : "off");
 
@@ -136,14 +136,14 @@ function App() {
     if (listening) {
       speechToText();
     }
-    // else {
-    //   resetTranscript();
-    // }
+    else {
+      resetTranscript();
+    }
   }, [transcript, listening])
 
   // Helps in scrolling the input element while user speaks
   useEffect(() => {
-    focusInputElement.current.scrollTo((focusInputElement.current.value.length) + 500, 0);
+    focusInputElement.current.scrollTo({ left: focusInputElement.current.scrollWidth, behavior: "smooth" });
   }, [input])
 
 
