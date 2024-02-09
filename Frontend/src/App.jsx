@@ -77,6 +77,7 @@ function App() {
     SpeechRecognition.stopListening();
     resetTranscript();
 
+
     if (input.trim() === "") return;
     if (botTyping) return;
     updatePosts(input);
@@ -107,7 +108,6 @@ function App() {
   const onKeyUp = (e) => {
     if (e.key === "Enter" || e.which === 13) {
       onSubmit();
-      resetTranscript();
     }
   };
 
@@ -115,23 +115,18 @@ function App() {
 
   const focusInputElement = useRef();
 
-  const speechToText = () => {
+  const speechToText = async () => {
 
     if (!browserSupportsSpeechRecognition) {
       return alert("This browser doesn't support speech regonition")
     }
 
-    SpeechRecognition.startListening({ continuous: true })
-
-
-
+    await SpeechRecognition.startListening({ continuous: true })
 
     console.log(listening ? "on" : "off");
 
     setInput(transcript);
 
-    focusInputElement.current.focus();
-    focusInputElement.scrollLeft = focusInputElement.scrollWidth;
 
   }
 
@@ -221,9 +216,9 @@ function App() {
             <img src={send} />
           </div>
         ) : (
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ margin: "0px 10px", display: "flex", alignItems: "center", gap: 10 }}>
             {listening ? (
-              <FaMicrophone style={{ fontSize: 25, cursor: "pointer", color: "#4157F7" }} onClick={() => { SpeechRecognition.stopListening() }} />
+              <FaMicrophone style={{ fontSize: 25, cursor: "pointer", color: "#4157F7" }} onClick={async () => { await SpeechRecognition.stopListening() }} />
             ) : (
               <FaMicrophone style={{ fontSize: 25, cursor: "pointer" }} onClick={speechToText} />
             )}
