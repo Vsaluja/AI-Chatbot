@@ -27,6 +27,16 @@
   padding: 0 20px;
 }
 
+.chatGPT-app .chat-heading{
+  font-size: 30px;
+  text-align: center;
+  margin: 10px 0px;
+}
+
+.chatGPT-app .chat-heading > span{
+  color: #2541fc;
+}
+
 footer {
   display: flex;
   justify-content: space-between;
@@ -66,7 +76,7 @@ footer {
   margin-right: -5px;
 }
 .chat-container {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 110px);
   padding: 20px 0;
 }
 .layout {

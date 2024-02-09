@@ -11,6 +11,7 @@ function App() {
   const [botTyping, setBotTyping] = useState(false);
 
   useEffect(() => {
+    // Helps in scrolling down while the bot is styping
     document.querySelector(".layout").scrollTop =
       document.querySelector(".layout").scrollHeight;
   }, [posts]);
@@ -54,11 +55,12 @@ function App() {
         clearInterval(interval);
         setBotTyping(false);
       }
-    }, 10);
+    }, 5);
   };
 
   const onSubmit = () => {
     if (input.trim() === "") return;
+    if (botTyping) return;
     updatePosts(input);
     updatePosts("loading...", false, true);
     setInput("");
@@ -95,14 +97,14 @@ function App() {
 
   return (
     <main className="chatGPT-app">
+      <h2 className="chat-heading"><span>Chattifyy</span> AI</h2>
       <section className="chat-container">
         <div className="layout">
           {posts.map((post, index) => (
             <div
               key={index}
-              className={`chat-bubble ${
-                post.type === "bot" || post.type === "loading" ? "bot" : ""
-              }`}
+              className={`chat-bubble ${post.type === "bot" || post.type === "loading" ? "bot" : ""
+                }`}
             >
               <div className="avatar">
                 <img

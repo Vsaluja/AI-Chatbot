@@ -57,7 +57,8 @@ app.post("/test/:query", async (req, res) => {
             model: "gpt-3.5-turbo",
         });
 
-        console.log(response.choices[0].message.content);
+        // console.log(response.choices[0].message.content);
+        console.log(response.choices[0]);
 
         res.status(200).send(response.choices[0].message.content);
 
