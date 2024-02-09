@@ -129,6 +129,8 @@ footer {
 
 #copy{
   cursor: pointer;
+  text-align: end;
+  margin-right: -10px;
 }
 
 .post {

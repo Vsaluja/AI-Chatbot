@@ -183,13 +183,13 @@ function App() {
               ) : (
                 <div className="post">
                   {post.type === "bot" ? (
-                    <div style={{ display: "flex", gap: 10, justifyContent: "space-between" }}>
-                      {post.post}
+                    <div style={{ display: "flex", gap: 0, flexDirection: "column", justifyContent: "space-between" }}>
                       {post.post.length > 100 && (
                         <div id="copy" onClick={() => copyText(index)}>
                           <IoCopySharp style={{ cursor: "pointer", minWidth: 15 }} />
                         </div>
                       )}
+                      {post.post}
                     </div>
                   ) : (
                     <div>{post.post}</div>
