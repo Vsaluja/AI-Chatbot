@@ -148,10 +148,3 @@ footer {
   display: flex;
   align-items: center;
 }
-
-@media (max-width: 450px){
-  /* .chat-container {
-    height: calc(100vh - 230px);
-    padding: 10px 0;
-  } */
-}
