@@ -7,10 +7,14 @@ Nandini Khokhani
 Frontend
 This code is a React application that implements a chat interface powered by the OpenAI GPT 3.5 model. Here's a summary of its functionality:
 1. State Management: The component uses useState to manage state variables such as input, posts, botTyping, and history.
-2. Fetching Bot Response: The fetchBotResponse function sends a request to a backend API endpoint with user input and conversation history to retrieve a response from the OpenAI GPT model.
-3. Speech Recognition: It utilizes the useSpeechRecognition hook from the react-speech-recognition library to enable speech-to-text functionality.
-4. Effects: useEffect hooks are used for various purposes such as scrolling, updating input focus, and managing speech recognition.
-5. Toast Notifications: Toast notifications are displayed using the react-toastify library for copying text confirmation.
+   
+3. Fetching Bot Response: The fetchBotResponse function sends a request to a backend API endpoint with user input and conversation history to retrieve a response from the OpenAI GPT model.
+   
+5. Speech Recognition: It utilizes the useSpeechRecognition hook from the react-speech-recognition library to enable speech-to-text functionality.
+   
+7. Effects: useEffect hooks are used for various purposes such as scrolling, updating input focus, and managing speech recognition.
+   
+9. Toast Notifications: Toast notifications are displayed using the react-toastify library for copying text confirmation.
 
 Overall, this React application provides a user-friendly chat interface that allows users to interact with the OpenAI GPT model through text input or speech recognition.
 
